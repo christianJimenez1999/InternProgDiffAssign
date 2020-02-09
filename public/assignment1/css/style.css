@@ -1,0 +1,120 @@
+body{
+    background-color: white;
+    color: black;
+}
+
+nav{
+    text-align: center;
+}
+
+header{
+    text-align: left;
+}
+
+figure{
+    text-align: center;
+}
+
+main{
+    text-align: left;
+}
+
+#me{
+    text-align: center;
+}
+
+#sText{
+    text-align: center;
+}
+
+nav a {                     /* links within "nav" container */
+        padding:15px;
+        padding-bottom: 4px;
+        font-size: 1.8em;
+        text-decoration: none;  /*removes underline*/
+        color: black;           /* by default, links are blue */
+    }
+    
+nav a:hover {      /*pseudo class*/
+    border-bottom:2px orange solid;
+    font-size: 2em;
+    transition: .9s;   /* transition effect */
+    text-shadow: 5px 5px 10px black;   /*NEW*/
+    }
+    
+nav c  {
+        border-bottom: 2px orange solid;
+        font-size: 2em;
+        color: black;
+        
+    }
+
+#cpp #Ctxt{
+    float: left;
+    color:black;
+}
+
+footer {
+        text-align: left;
+        clear: left;
+        color: silver;
+        font-size: .5em;
+}
+
+
+thead {
+    text-align: center;
+    color: black;
+}
+
+tbody{
+     text-align: center;
+    color: black;
+}
+
+table{
+    border:2px solid black;
+    text-align: center;
+    color:black; 
+} 
+
+th, td{
+    border:2px solid black;
+    text-align: center;
+    color:black; 
+}
+
+#me{
+    border: .5px solid;
+    padding: 5px;
+    box-shadow: 5px 5px #888888;
+    
+}
+
+#cpp{
+    border: .5px solid;
+    padding: 5px;
+    box-shadow: 5px 5px #888888;
+}
+
+#java{
+    border: .5px solid;
+    padding: 5px;
+    box-shadow: 5px 5px #888888;
+}
+
+#python{
+    border: .5px solid;
+    padding: 5px;
+    box-shadow: 5px 5px #888888;
+}
+
+#CSUMB{
+    text-align: left;
+}
+
+main a{
+    font-family: bold;
+    font-family: 'Pacifico', cursive;
+    font-size: .8em;
+}
