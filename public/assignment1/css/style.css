@@ -5,6 +5,8 @@ body{
 
 nav{
     text-align: center;
+    /*width: 50%;*/
+    width: 100%;
 }
 
 header{
@@ -42,12 +44,19 @@ nav a:hover {      /*pseudo class*/
     text-shadow: 5px 5px 10px black;   /*NEW*/
     }
     
-nav c  {
-        border-bottom: 2px orange solid;
+/*nav c  {*/
+/*        border-bottom: 2px orange solid;*/
+/*        font-size: 2em;*/
+/*        color: black;*/
+        
+/*    }*/
+    
+#c{
+    
+    border-bottom: 2px orange solid;
         font-size: 2em;
         color: black;
-        
-    }
+}
 
 #cpp #Ctxt{
     float: left;
