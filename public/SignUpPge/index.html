@@ -1,0 +1,207 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>AJAX: Sign Up Page</title>
+<script  src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<body id="dummybodyid">
+  <h1> Sign Up Form </h1>
+
+  <form id="signupForm" method="get" action="welcome.html">
+    <fieldset>
+      <legend>Sign Up</legend>
+      <div><label>First Name:</label><input type="text" name="fname"></div>
+      <div><label>Last Name:</label><input type="text" name="lname"></div>
+      
+      
+      <label>Gender:</label>
+      <input type="radio" name="gender" value"m">Male
+      <input type="radio" name="gender" value="f">Female<br><br>
+      
+      
+      <div><label>Email:</label><input type="text"></div>
+      <div><label>Phone Number:</label><input type="text"></div>
+      
+      
+      <div><label>Zip Code:</label><input type="text" name="zip" id="zip"></div>
+                                  <span id="zipError"></span><br>
+      <div><label>City:</label><span id="city"></span></div>
+      <div><label>Latitude:</label><span id="latitude"></span></div>
+      <div><label>Longitude:</label><span id="longitude"></span></div>
+      
+      <br>
+      
+      
+      <div><label>State:</label><select id="state"  name="state">
+          <option value="">Select One</option>
+          <option value="ca"> California</option>
+          <option value="ny"> New York</option>
+          <option value="tx"> Texas</option>
+      </select><br />
+      
+      
+      <div><label>Select a County:</label><select id="county"></select><br><br>
+      
+      <div><label>Desired Username:</label><input type="text" id="username" name="username"></div>
+                                           <span id="usernameError"></span><br>
+      <div><label>Password:</label><input type="password" id="password" name="password"></div>
+      <div><label>Type Password Again:</label><input type="password" id="passwordAgain"></div>
+                                              <span id="passwordAgainError"></span><br /><br>
+     
+      <div><input type="submit" value="Sign up!"></div>
+    </fieldset>
+  </form>
+  
+  
+  <script>
+  
+  var usernameAvailable = false;
+  
+      //display city from API after inserting zip code
+      $("#zip").on("change",function(){
+          //alert($("#zip").val());
+          
+         $.ajax({
+             method: "GET",
+             url: "https://itcdland.csumb.edu/~milara/ajax/cityInfoByZip.php",
+             dataType: "json",
+             data: { "zip": $("#zip").val() },
+             success: function(result, status) {
+                 //alert(result);
+                 
+                 if(result.city && result.latitude && result.longitude){
+                     $("#zipError").html("Zip code found!!");
+                     $("#zipError").css("color", "green");
+                     $("#city").html(result.city);
+                      $("#latitude").html(result.latitude);
+                      $("#longitude").html(result.longitude);
+                 } else{
+                     $("#zipError").html("not found");
+                     $("#zipError").css("color", "red");
+                     $("#city").html(" ");
+                      $("#latitude").html(" ");
+                      $("#longitude").html(" ");
+                 }
+                 
+                  
+                      
+                 
+             }
+             
+         });    //ajax
+
+          
+      });   //zip
+      
+    //   $("#state").on("select", function(){
+          
+    //       $.ajax({
+    //          method: "GET",
+    //          url: "https://itcdland.csumb.edu/~milara/ajax/states.php",
+    //          dataType: "json",
+    //          data: { "state": $("#state").val() },
+    //          success: function(result,status) {
+                 
+    //              //alert(result[0].county);
+    //              $("#state").html("<option> Select One </option>");
+                 
+    //              result.forEach(function(i){
+    //                  $("#state").append("<option>" + i.state + "</option>");
+    //              });
+                 
+    //          }
+    //   });
+    //  });
+      
+      //show the counties
+      $("#state").on("change", function(){
+          //alert($("#state").val());
+          
+          $.ajax({
+             method: "GET",
+             url: "https://itcdland.csumb.edu/~milara/ajax/countyList.php?state=ca",
+             dataType: "json",
+             data: { "state": $("#state").val() },
+             success: function(result,status) {
+                 
+                 //alert(result[0].county);
+                 $("#county").html("<option> Select One </option>");
+                 
+                 result.forEach(function(i){
+                     $("#county").append("<option>" + i.county + "</option>");
+                 });
+                
+             
+                 
+             }
+             
+         });    //ajax
+          
+      });   //state part
+      
+      $("#username").change(function() {
+          //alert($("#username").val());
+          
+          $.ajax({
+              method: "GET",
+              url: "https://cst336.herokuapp.com/projects/api/usernamesAPI.php?username=eeny",
+              dataType: "json",
+              data: { "username":$("#username").val() },
+              success: function(result, status){
+                  
+                  if(result.available){
+                      $("#usernameError").html("Username is available");
+                      $("#usernameError").css("color", "green");
+                      usernameAvailable = true;
+                  } else{
+                      $("#usernameError").html("Username is not available!");
+                      $("#usernameError").css("color", "red");
+                      usernameAvailable = false;
+                  }
+              }
+          });   //ajax
+          
+      }); //username part
+      
+      $("#signupForm").on("submit", function(e){
+        //  alert("Submitting form..."); 
+        //  event.preventDefault();
+        if(!isFormValid()){
+            e.preventDefault();
+        }
+        
+        function isFormValid(){
+            var isValid = true;
+            if(!usernameAvailable){
+                isValid = false;
+            }
+            
+            if($("#username").val().length == 0){
+                isValid = false;
+                $("#usernameError").html("Username is required.");
+            }
+            
+            if($("#password").val() != $("#passwordAgain").val()){
+                $("#passwordAgainError").html("Password Mismatch!");
+                isValid = false;
+            }
+            
+            if($("#password").val().length < 6){
+                isValid = false;
+                $("#passwordAgainError").html("password needs to be 6 characters long")
+            }
+            
+            return isValid;
+        }
+        
+      });
+      
+  </script>
+  
+  
+</body>
+
+</html>
