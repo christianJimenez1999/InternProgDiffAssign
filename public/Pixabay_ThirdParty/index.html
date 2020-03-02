@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title> Third Party API</title>
+        	<link rel="stylesheet" type="text/css" href="app.css">
+	        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+    </head>
+    
+    <body>
+        <div class="container">
+            
+            
+            <div  class="text-justify">
+                <br><br>
+                <h1 class="text-center"> Pixabay Image Search </h1>
+            </div>
+            
+            <!---------------------------------------------------------------------------------------->
+            
+            <br><br>
+            <div class="form-group row" id="keyword">
+                <label for="keyword" class="col-sm-1 col-form-label">Keyword:</label>
+                
+                
+                <div id = "keyword">
+                    <input type="text" class="form-control" id="keyword" value="enter a word" required>
+                </div>
+                
+            </div>
+            <!--------------------------------------------------------------------------------------->
+            
+            <div class="form-group row" class="align-middle" >
+                
+    				<label for="orientation" class="text-right" class="col-sm-1 col-form-label">Orientation:</label>
+    				
+    				
+    				<div class="col-sm-1.8">
+    					
+                     <div><select id="state"  name="state">
+                          <option value="">Select One</option>
+                          <option value="hz"> Horizontal</option>
+                          <option value="vr"> Vertical</option>
+                     </select><br />
+                    
+                    
+    				</div>
+    				
+    				</div>
+    				
+    				<div class="col-sm-0">
+    				    <button type="submit" class="btn btn-primary">Search</button>
+    				</div>
+    				
+            </div>
+            <!----------------------------------------------------------------------------------------->
+        </div>
+        
+        <div class="container">
+            <div class="form-group row" class="align-middle">
+                 
+                 <div class="col-sm-1">
+                     <label id="likes1"></label>
+                     <image width="100" id="pic1" src=""></image>
+                 </div>
+                 
+                 <div class="col-sm-1">
+                     <label>image</label>
+                     <image width="100" id="pic2" src="">
+                 </div>
+                 
+                 <div class="col-sm-1">
+                     <label>image</label>
+                     <image width="100" id="pic3" src="">
+                 </div>
+                 
+                 <div class="col-sm-1">
+                     <label>image</label>
+                     <image width="100" id="pic4" src="">
+                 </div>
+                
+            </div>
+        </div>
+        
+        <script>
+            
+            $(document).ready(function(){
+                $.ajax({
+                    method: "GET",
+                    url: " https://pixabay.com/api/?key=15449339-62ac8a9f7afcca4e5d396f0b1&q=yellow+flowers&image_type=photo",
+                    dataType: "json",
+                    success: function(result){
+                        $("#pic1").attr('src', result);
+                    }
+                    
+                });
+                
+                
+            
+            //   $("#pic1").attr("src",) 
+            
+                    
+                    
+            });
+            
+            $(document).ready(function(){
+                $.ajax({
+                    method: "GET",
+                    url: " https://pixabay.com/api/?key=15449339-62ac8a9f7afcca4e5d396f0b1&q=yellow+flowers&image_type=photo",
+                    dataType: "json",
+                    data: { "likes1":$("#likes1").val() },
+                    success: function(result){
+                        $("#likes1").html(result);
+                        
+                    }
+                    
+                });
+                
+                
+            
+            //   $("#pic1").attr("src",) 
+            
+                    
+                    
+            });
+            
+            
+            
+            
+            
+            
+        //     $("#username").change(function() {
+        //   //alert($("#username").val());
+          
+        //   $.ajax({
+        //       method: "GET",
+        //       url: "https://cst336.herokuapp.com/projects/api/usernamesAPI.php?username=eeny",
+        //       dataType: "json",
+        //       data: { "username":$("#username").val() },
+        //       success: function(result, status){
+                  
+        //           if(result.available){
+        //               $("#usernameError").html("Username is available");
+        //               $("#usernameError").css("color", "green");
+        //               usernameAvailable = true;
+        //           } else{
+        //               $("#usernameError").html("Username is not available!");
+        //               $("#usernameError").css("color", "red");
+        //               usernameAvailable = false;
+        //           }
+        //       }
+        //   }); 
+            
+        </script>
+        
+        
+        <script type="text/javascript" src="app.js"></script>
+    </body>
+    
+    <br><br>
+    
+    
+</html>
