@@ -5,117 +5,156 @@
         	<link rel="stylesheet" type="text/css" href="app.css">
 	        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            
+            
+            
+            <script>
+            
+            $(document).ready(function(){
+                
+                var word = ["dog", "car", "cat", "moon", "goku"];
+                var starting = word[Math.floor(Math.random()*word.length)]; 
+                
+                $("#images").empty();
+                $.ajax({
+                    url:  "https://pixabay.com/api/?key=15449339-62ac8a9f7afcca4e5d396f0b1",
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        'q': $(starting).val()
+                    },
+                    
+                    success: function(data){
+                        
+                        console.log($("starting").val());
+                        console.log(data);
+                        console.log($("#state").val());
+                        
+                        var i;
+                        for (i = 0; i < 4; i++) {
+                          var num = Math.floor(Math.random() * data.hits.length);
+                          
+                          //console.log(num);
+                          //console.log(data.hits[num].likes);
+                          $("#images" + i + "").html("Likes: " + data.hits[num].likes + "<br><br><div class=\"col-sm-0\"><img src=\""+ data.hits[num].webformatURL +"\" width='150'></div>");
+                        }
+                        
+                        
+                    }
+                    
+                });
+            })
+            
+            let Search = function(){
+                $("#images").empty();
+                $.ajax({
+                    url:  "https://pixabay.com/api/?key=15449339-62ac8a9f7afcca4e5d396f0b1",
+                    type: "GET",
+                    dataType: "json",
+                    data: {
+                        'q': $("#key").val()
+                    },
+                    
+                    dat: {
+                        'orientation': $("#state").val()
+                    },
+                    success: function(data){
+                        
+                        console.log($("#key").val());
+                        console.log(data);
+                        console.log($("#state").val());
+                        
+                        var i;
+                        for (i = 0; i < 4; i++) {
+                          var num = Math.floor(Math.random() * data.hits.length);
+                          
+                          //console.log(num);
+                          //console.log(data.hits[num].likes);
+                          $("#images" + i + "").html("Likes: " + data.hits[num].likes + "<br><br><div class=\"col-sm-0\"><img src=\""+ data.hits[num].webformatURL +"\" width='150'></div>");
+                        }
+                        
+                        
+                    }
+                    
+                });
+            }
+            
+        </script>
         
     </head>
     
-    <body>
+    <body class="p-3 mb-2 bg-dark text-white">
         <div class="container">
             
             
-            <div  class="text-justify">
+            <div class="font-italic" class="text-justify">
                 <br><br>
-                <h1 class="text-center"> Pixabay Image Search </h1>
+                <h1  class="text-center" > Pixabay Image Search </h1>
             </div>
             
             <!---------------------------------------------------------------------------------------->
             
+            <form action="/" method="post" onsubmit="Search(); return false;">
+                
+                
             <br><br>
             <div class="form-group row" id="keyword">
                 <label for="keyword" class="col-sm-1 col-form-label">Keyword:</label>
                 
                 
                 <div id = "keyword">
-                    <input type="text" class="form-control" id="keyword" value="dog" required>
+                    <input type="text" class="form-control" id="key" required>
                 </div>
                 
             </div>
-            <!--------------------------------------------------------------------------------------->
+
             
-            <div class="form-group row" class="align-middle" >
+            
+            
+                <div class="form-group row" class="align-middle" >
+                    
+        				<label for="orientation" class="text-right" class="col-sm-1 col-form-label">Orientation:</label>
+        				
+        				
+        				<div class="col-sm-1.8">
+        					
+                         <div><select id="state"  name="state">
+                              <option value="">Select One</option>
+                              <option value="horizontal"> Horizontal</option>
+                              <option value="vertical"> Vertical</option>
+                         </select><br />
+                        
+                        
+        				</div>
+        				
+        				</div>
+        				
+        				<div class="col-sm-0">
+        				    <button type="submit" class="btn btn-primary">Search</button>
+        				</div>
+        				
+                </div>
                 
-    				<label for="orientation" class="text-right" class="col-sm-1 col-form-label">Orientation:</label>
-    				
-    				
-    				<div class="col-sm-1.8">
-    					
-                     <div><select id="state"  name="state">
-                          <option value="">Select One</option>
-                          <option value="hz"> Horizontal</option>
-                          <option value="vr"> Vertical</option>
-                     </select><br />
-                    
-                    
-    				</div>
-    				
-    				</div>
-    				
-    				<div class="col-sm-0">
-    				    <button type="submit" class="btn btn-primary">Search</button>
-    				</div>
-    				
+            </form>
+            
+            <div class="form-group row">
+                <div class="col-sm-2" id="images0"></div>
+                <div class="col-sm-2" id="images1"></div>
+                <div class="col-sm-2" id="images2"></div>
+                <div class="col-sm-2" id="images3"></div>
             </div>
+                
+            
             <!----------------------------------------------------------------------------------------->
         </div>
         
-        <div class="container">
-            <div class="flex-container" id="images">
-                 
-            </div>
-        </div>
         
-        <script>
             
-            $(document).ready(function(){
-               $("#images").empty();
-               $.ajax({
-                  type: "GET",
-                  url: "https://pixabay.com/api/?key=15449339-62ac8a9f7afcca4e5d396f0b1&",
-                  dataType: "json",
-                  data: {
-                    'q': $('#keyword').val()  
-                  },
-                  
-                  success: function(result) {
-                      result.hits.append("<div class=\"><img src=\""+result.webformatURL+"\"></div");
-                  }
-                  
-               });
-            });
-            
-            
-            
-            
-            
-            
-        //     $("#username").change(function() {
-        //   //alert($("#username").val());
-          
-        //   $.ajax({
-        //       method: "GET",
-        //       url: "https://cst336.herokuapp.com/projects/api/usernamesAPI.php?username=eeny",
-        //       dataType: "json",
-        //       data: { "username":$("#username").val() },
-        //       success: function(result, status){
-                  
-        //           if(result.available){
-        //               $("#usernameError").html("Username is available");
-        //               $("#usernameError").css("color", "green");
-        //               usernameAvailable = true;
-        //           } else{
-        //               $("#usernameError").html("Username is not available!");
-        //               $("#usernameError").css("color", "red");
-        //               usernameAvailable = false;
-        //           }
-        //       }
-        //   }); 
-            
-        </script>
+        
+        
         
         
         <script type="text/javascript" src="app.js"></script>
     </body>
-    
-    <br><br>
-    
     
 </html>
