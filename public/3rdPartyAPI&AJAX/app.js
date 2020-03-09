@@ -1,6 +1,7 @@
 let searchName = function(){
     $("#images").empty();
     var url = "https://www.behindthename.com/api/lookup.json?&key=ch802254322";
+    
     $.ajax({
         url: url,
         type: "GET",
@@ -26,6 +27,7 @@ let searchName = function(){
                      $("#images").append("<div class=\"font-weight-bolder\" class=\"p-3 mb-2 bg-dark text-blue\" class=\"img-thumbnail flex-item \" ><label>Usage: " + data[0].usages[i].usage_full  + " </label></div>");
                      $("#images").append("<label class=\"font-weight-bolder\"> Gender: Male </label>");
                      $("#images").append("<div><img src=\"img/" + nme + "\"><div>");
+                     
                  } else if(data[0].usages[i].usage_gender ==  "f"){
                      var fnme = "female.png";
                      
