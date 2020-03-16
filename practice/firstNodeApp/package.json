@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.0.1",
-    "express": "^4.17.1"
+    "faker": "^4.1.0",
+    "knock-knock-jokes": "^1.7.0"
   }
 }
